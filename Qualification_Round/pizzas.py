@@ -1,43 +1,40 @@
 import sys
 
-M, N = ( int(x) for x in sys.stdin.readline().split(' '))
-p = [int(x) for x in sys.stdin.readline().split(' ')]
+def calc(l):
+    global p
+    global sli
+    global scor
+    global bScor
+    global bSli
 
-bScor = 0
-bSli = []
-
-for i in range(N-1,-1,-1):
-    scor = 0
-    sli = []
-
-    for j in range(i,-1,-1):
+    for j in range(l,-1,-1):
         if (scor + p[j]) > M:
             continue
         scor += p[j]
-        sli += [j]
+        sli.append(j)
 
     if scor > bScor:
         bScor = scor
         bSli = sli[:]
 
+    return bScor
 
-    if bScor == M:
+bScor = 0
+bSli = []
+M, N = ( int(x) for x in sys.stdin.readline().split(' '))
+p = [int(x) for x in sys.stdin.readline().split(' ')]
+
+for i in range(N-1,-1,-1):
+    scor = 0
+    sli = []
+
+    if calc(i) == M:
         break
 
     while sli:
         lst = sli.pop()
         scor -= p[lst]
-        for j in range(lst-1,-1,-1):
-            if (scor + p[j]) > M:
-                continue
-            scor += p[j]
-            sli += [j]
-
-        if scor > bScor:
-            bScor = scor
-            bSli = sli[:]
-
-        if bScor == M:
+        if calc(lst-1,) == M:
             break
 
 #print(bScor)
