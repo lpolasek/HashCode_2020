@@ -22,10 +22,10 @@ def calc(l, scor, sli):
 
     if (scor + lscor) > bScor:
         bScor = scor + lscor
-        bSli = sli[:] + lsli[:]
+        bSli = sli + lsli
         assert bScor == check(bSli)
 
-    return (scor + lscor, sli + lsli, bScor)
+    return (lscor, lsli)
 
 bScor = 0
 bSli = []
@@ -33,7 +33,7 @@ M, N = ( int(x) for x in sys.stdin.readline().split(' '))
 p = [int(x) for x in sys.stdin.readline().split(' ')]
 
 for i in range(N-1,-1,-1):
-    scor, sli, bScor = calc(i, 0, [])
+    scor, sli = calc(i, 0, [])
     if bScor == M:
         break
 
